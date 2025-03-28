@@ -20,7 +20,6 @@ backgroundImage2.src = "./images/background_phase2.jpg";
 const backgroundImage3 = new Image();
 backgroundImage3.src = "./images/background_phase3.png";
 
-// Classe que representa o jogador
 class Player {
   constructor(x, y, width, height, speed) {
     this.x = x;
@@ -29,12 +28,20 @@ class Player {
     this.height = height;
     this.speed = speed;
     this.dx = 0;
+    this.dy = 0; // Adicionado para controlar movimento vertical
   }
 
-  update(canvasWidth) {
+  update(canvasWidth, canvasHeight) {
     this.x += this.dx;
+    this.y += this.dy; // Atualiza a posição vertical
+
+    // Limites horizontais
     if (this.x < 0) this.x = 0;
     if (this.x + this.width > canvasWidth) this.x = canvasWidth - this.width;
+
+    // Limites verticais (para evitar que o carro saia da pista)
+    if (this.y < 0) this.y = 0;
+    if (this.y + this.height > canvasHeight) this.y = canvasHeight - this.height;
   }
 
   draw(ctx) {
@@ -50,6 +57,7 @@ class Player {
     return { x: this.x, y: this.y, width: this.width, height: this.height };
   }
 }
+
 
 // Classe que representa um obstáculo (tipo "car" ou "hole")
 class Obstacle {
@@ -147,8 +155,13 @@ class Game {
         this.player.dx = -this.config.playerSpeed;
       } else if (e.key === "ArrowRight" || e.key === "d") {
         this.player.dx = this.config.playerSpeed;
+      } else if (e.key === "ArrowUp" || e.key === "w") {
+        this.player.dy = -this.config.playerSpeed; // Mover para cima
+      } else if (e.key === "ArrowDown" || e.key === "s") {
+        this.player.dy = this.config.playerSpeed; // Mover para baixo
       }
     });
+  
     document.addEventListener("keyup", (e) => {
       if (
         e.key === "ArrowLeft" || e.key === "a" ||
@@ -156,8 +169,16 @@ class Game {
       ) {
         this.player.dx = 0;
       }
+  
+      if (
+        e.key === "ArrowUp" || e.key === "w" ||
+        e.key === "ArrowDown" || e.key === "s"
+      ) {
+        this.player.dy = 0;
+      }
     });
   }
+  
 
   drawBackground() {
     const bgImg = this.config.backgroundImage;
