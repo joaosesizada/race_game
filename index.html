@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jogo de Carros - Tela de Início</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="main.js" defer></script>
+</head>
+<body>
+  <!-- Tela de Início -->
+  <div id="startScreen" class="screen">
+    <h1>Jogo de Carros</h1>
+    <p>Pressione "Iniciar Jogo" para começar!</p>
+    <button id="startButton">Iniciar Jogo</button>
+  </div>
+
+  <!-- Tela de Game Over -->
+  <div id="gameOverScreen" class="screen" style="display: none;">
+    <h1>Game Over</h1>
+    <p id="finalScore"></p>
+    <button id="restartButton">Recomeçar</button>
+  </div>
+
+  <!-- Seção de controles -->
+  <div id="controlsPanel">
+    <h2>Controles</h2>
+    <p><strong>A</strong>: Mover para a esquerda</p>
+    <p><strong>D</strong>: Mover para a direita</p>
+  </div>
+
+  <!-- Canvas do jogo -->
+  <canvas id="gameCanvas" width="400" height="600"></canvas>
+
+  </body>
+</html>
